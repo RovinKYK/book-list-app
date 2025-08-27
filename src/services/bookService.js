@@ -4,7 +4,7 @@ import axios from 'axios';
 const getApiUrl = () => {
   if (window.configs && window.configs.apiUrl) {
     // When running on Choreo, this is injected by the managed auth
-    return `${window.configs.apiUrl}/choreo-apis/book-list-service/v1.0`;
+    return window.configs.apiUrl;
   }
   
   // Fallback for local development
@@ -16,6 +16,8 @@ const apiClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  // This ensures the secure session cookie is sent with the request
+  withCredentials: true,
 });
 
 // Get all books

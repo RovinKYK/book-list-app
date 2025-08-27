@@ -6,6 +6,7 @@ import {
 } from '@mui/material';
 import BookList from './components/BookList';
 import AddBookForm from './components/AddBookForm';
+import AuthButtons from './components/AuthButtons';
 import { getAllBooks, addBook, updateBookStatus, deleteBook } from './services/bookService';
 
 const theme = createTheme({
@@ -90,6 +91,7 @@ function App() {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Book List App
             </Typography>
+            <AuthButtons />
           </Toolbar>
         </AppBar>
         <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>

@@ -1,0 +1,13 @@
+{
+  "buildPresets": {
+    "react": {
+      "buildCommand": "npm run choreo-build",
+      "buildDir": "build"
+    }
+  },
+  "runPresets": {
+    "react": {
+      "runCommand": "npm run choreo-start"
+    }
+  }
+}

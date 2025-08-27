@@ -1,44 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import BookService from '../services/BookService';
+import React from 'react';
 
-const BookCard = ({ uuid, onUpdateStatus, onDeleteBook }) => {
-  const [book, setBook] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchBook = async () => {
-      try {
-        const data = await BookService.getBookByUuid(uuid);
-        setBook(data);
-        setError(null);
-      } catch (error) {
-        console.error(`Error fetching book with UUID ${uuid}:`, error);
-        setError('Failed to load book details');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBook();
-  }, [uuid]);
-
-  if (loading) {
-    return <div className="book-card loading">Loading book details...</div>;
+const BookCard = ({ book, onUpdateStatus, onDeleteBook }) => {
+  if (!book) {
+    return <div className="book-card error">Error: Book data is missing</div>;
   }
 
-  if (error || !book) {
-    return <div className="book-card error">Error: {error || 'Book not found'}</div>;
-  }
+  const getNextStatus = (currentStatus) => {
+    // Cycle through the three possible statuses
+    switch (currentStatus) {
+      case 'read':
+        return 'to_read';
+      case 'to_read':
+        return 'reading';
+      case 'reading':
+        return 'read';
+      default:
+        return 'to_read';
+    }
+  };
 
   const handleStatusChange = () => {
-    const newStatus = book.status === 'read' ? 'unread' : 'read';
-    onUpdateStatus(uuid, newStatus);
+    const newStatus = getNextStatus(book.status);
+    onUpdateStatus(book.uuid, newStatus);
   };
 
   const handleDelete = () => {
     if (window.confirm(`Are you sure you want to delete "${book.title}"?`)) {
-      onDeleteBook(uuid);
+      onDeleteBook(book.uuid);
     }
   };
 
@@ -47,11 +35,11 @@ const BookCard = ({ uuid, onUpdateStatus, onDeleteBook }) => {
       <h3>{book.title}</h3>
       <p>By {book.author}</p>
       <p>
-        Status: <span className={`book-status status-${book.status}`}>{book.status}</span>
+        Status: <span className={`book-status status-${book.status}`}>{book.status.replace('_', ' ')}</span>
       </p>
       <div className="actions">
         <button onClick={handleStatusChange} className="button-update">
-          Mark as {book.status === 'read' ? 'Unread' : 'Read'}
+          Mark as {getNextStatus(book.status).replace('_', ' ')}
         </button>
         <button onClick={handleDelete} className="button-delete">
           Delete

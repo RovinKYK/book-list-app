@@ -71,8 +71,13 @@ code {
   color: white;
 }
 
-.status-unread {
+.status-to_read {
   background-color: #e74c3c;
+  color: white;
+}
+
+.status-reading {
+  background-color: #f39c12;
   color: white;
 }
 

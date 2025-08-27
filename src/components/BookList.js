@@ -13,10 +13,10 @@ const BookList = ({ books, onUpdateStatus, onDeleteBook }) => {
     <div>
       <h2>Your Books</h2>
       <div className="book-grid">
-        {bookArray.map((bookId) => (
+        {bookArray.map((book) => (
           <BookCard 
-            key={bookId}
-            uuid={bookId}
+            key={book.uuid}
+            book={book}
             onUpdateStatus={onUpdateStatus}
             onDeleteBook={onDeleteBook}
           />

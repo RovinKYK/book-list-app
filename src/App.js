@@ -25,8 +25,18 @@ function App() {
     setLoading(true);
     try {
       const data = await BookService.getAllBooks();
-      // Ensure data is an array
-      setBooks(Array.isArray(data) ? data : []);
+      // Handle the object format where keys are UUIDs and values are book objects
+      if (data && typeof data === 'object' && !Array.isArray(data)) {
+        // Convert the object to an array of book objects with UUID included
+        const booksArray = Object.entries(data).map(([uuid, book]) => ({
+          ...book,
+          uuid: uuid
+        }));
+        setBooks(booksArray);
+      } else {
+        // Fallback to empty array if data is not in expected format
+        setBooks([]);
+      }
       setError(null);
     } catch (error) {
       console.error('Error fetching books:', error);

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const AddBookForm = ({ onAddBook }) => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
-  const [status, setStatus] = useState('unread');
+  const [status, setStatus] = useState('to_read');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,7 +25,7 @@ const AddBookForm = ({ onAddBook }) => {
     // Reset form
     setTitle('');
     setAuthor('');
-    setStatus('unread');
+    setStatus('to_read');
   };
 
   return (
@@ -63,7 +63,8 @@ const AddBookForm = ({ onAddBook }) => {
             value={status}
             onChange={(e) => setStatus(e.target.value)}
           >
-            <option value="unread">Unread</option>
+            <option value="to_read">To Read</option>
+            <option value="reading">Reading</option>
             <option value="read">Read</option>
           </select>
         </div>

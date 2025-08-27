@@ -4,10 +4,12 @@ FROM node:18-alpine AS builder
 WORKDIR /app
 COPY package.json .
 COPY package-lock.json* .
-RUN npm ci
+COPY .npmrc .
+RUN npm install
 
 # Copy all files and build
 COPY . .
+RUN npm install react-scripts -g
 RUN npm run build
 
 # Serve with nginx

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import BookList from './components/BookList';
 import AddBookForm from './components/AddBookForm';
+import AuthNav from './components/AuthNav';
 import BookService from './services/BookService';
 
 function App() {
@@ -8,9 +9,16 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [username, setUsername] = useState(null);
 
   useEffect(() => {
     fetchBooks();
+    
+    // If we're in production and window.configs exists, get the username
+    // In Choreo's managed authentication, user info would typically be available
+    if (process.env.NODE_ENV === 'production' && window.configs && window.configs.userInfo) {
+      setUsername(window.configs.userInfo.username || 'User');
+    }
   }, []);
 
   const fetchBooks = async () => {
@@ -71,6 +79,7 @@ function App() {
       <div className="header">
         <h1>Book List App</h1>
         <p>Manage your reading list with ease</p>
+        <AuthNav username={username} />
       </div>
 
       {error && <div className="error">{error}</div>}

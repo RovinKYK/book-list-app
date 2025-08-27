@@ -1,10 +1,14 @@
 import axios from 'axios';
 
-// For local development, using a local proxy to avoid CORS issues
-// When deployed on Choreo, we'll use the managed authentication feature
-const API_BASE_URL = process.env.NODE_ENV === 'production'
-  ? '/choreo-apis/book-list-service/v1.0' // Will be properly configured by Choreo's managed auth
+// Configure axios for Choreo managed authentication
+// Using window.configs.apiUrl in production (set by Choreo's /public/config.js)
+// Fallback to localhost for development
+const API_BASE_URL = process.env.NODE_ENV === 'production' && window.configs
+  ? window.configs.apiUrl // This is automatically set by Choreo's mounted config.js
   : 'http://localhost:8080'; // For local development
+
+// Configure axios to include credentials (cookies) for Choreo managed auth
+axios.defaults.withCredentials = true;
 
 class BookService {
   static async getAllBooks() {

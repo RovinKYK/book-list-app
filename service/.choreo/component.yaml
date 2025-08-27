@@ -1,0 +1,7 @@
+components:
+  - id: book-list-service
+    endpoints:
+      - id: default
+        protocol: http
+        networkVisibility: Public
+        path: /

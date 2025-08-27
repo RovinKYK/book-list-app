@@ -25,11 +25,13 @@ function App() {
     setLoading(true);
     try {
       const data = await BookService.getAllBooks();
-      setBooks(data);
+      // Ensure data is an array
+      setBooks(Array.isArray(data) ? data : []);
       setError(null);
     } catch (error) {
       console.error('Error fetching books:', error);
       setError('Failed to fetch books. Please try again later.');
+      setBooks([]);
     } finally {
       setLoading(false);
     }

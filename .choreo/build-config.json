@@ -1,8 +1,0 @@
-{
-  "buildPresets": {
-    "reactjs": {
-      "buildCommand": "npm install && npm run build",
-      "buildDir": "build"
-    }
-  }
-}

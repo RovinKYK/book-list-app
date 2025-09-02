@@ -1,0 +1,30 @@
+body {
+  background-color: #f8f9fa;
+}
+
+.App {
+  min-height: 100vh;
+}
+
+h2 {
+  color: #343a40;
+  margin-bottom: 1.5rem;
+}
+
+.table {
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.card {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Animation for loading spinner */
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+
+.spinner {
+  animation: spinner 0.8s linear infinite;
+}

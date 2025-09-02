@@ -1,0 +1,25 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  flex: 1;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  color: #343a40;
+}
+
+.card {
+  border-radius: 8px;
+  border: none;
+  overflow: hidden;
+}

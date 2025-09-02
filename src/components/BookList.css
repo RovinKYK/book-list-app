@@ -1,0 +1,48 @@
+.book-list-container {
+  padding: 20px;
+}
+
+.book-card {
+  transition: transform 0.2s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 100%;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.status-read {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-reading {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.status-to-read {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.status-buttons {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.status-buttons .btn {
+  flex: 1;
+  font-size: 0.8rem;
+  padding: 4px 8px;
+}

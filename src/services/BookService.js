@@ -1,17 +1,18 @@
 import axios from 'axios';
 
-// This URL will be replaced when deployed to Choreo
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
+// When running locally, use the environment variable
+// When running in Choreo, use the config.js that's mounted by Choreo
+const API_URL = window?.configs?.apiUrl 
+  ? window.configs.apiUrl 
+  : (process.env.REACT_APP_API_URL || 'http://localhost:8080');
 
-// When running in Choreo, the API key will be injected via environment variables
-const API_KEY = process.env.REACT_APP_API_KEY || '';
-
+// Create axios instance with credentials to support Choreo managed authentication
 const instance = axios.create({
   baseURL: API_URL,
   headers: {
-    'Content-Type': 'application/json',
-    ...(API_KEY && { 'X-Api-Key': API_KEY })
-  }
+    'Content-Type': 'application/json'
+  },
+  withCredentials: true // Important for managed authentication
 });
 
 const BookService = {

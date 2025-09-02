@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { CssBaseline, Container } from '@mui/material';
+import { CssBaseline, Container, Alert, Box } from '@mui/material';
+import AuthHeader from './components/AuthHeader';
 import BookList from './components/BookList';
 import './App.css';
 
@@ -17,11 +18,22 @@ const theme = createTheme({
 });
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <AuthHeader onAuthChange={setIsAuthenticated} />
       <Container maxWidth="lg" sx={{ py: 4 }}>
-        <BookList />
+        {isAuthenticated ? (
+          <BookList />
+        ) : (
+          <Box textAlign="center" py={8}>
+            <Alert severity="info">
+              Please log in to view and manage your book collection.
+            </Alert>
+          </Box>
+        )}
       </Container>
     </ThemeProvider>
   );

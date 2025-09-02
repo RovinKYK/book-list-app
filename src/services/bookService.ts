@@ -1,25 +1,30 @@
 import axios from 'axios';
 import { Book, BookResponse } from '../types/Book';
 
-const API_BASE_URL = window.configs?.choreoBackendServiceUrl || process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080';
+// Use Choreo connection service URL for managed authentication
+const API_BASE_URL = window.configs?.apiUrl || '/choreo-apis/rovintest/book-list-service/v1';
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
+  // Ensure credentials (session cookies) are sent with requests for Choreo managed auth
+  withCredentials: true,
 });
 
-// Add interceptor for Choreo authentication if available
-apiClient.interceptors.request.use((config) => {
-  // When deployed to Choreo with managed auth, requests to /choreo-apis/* are automatically authenticated
-  if (config.baseURL?.includes('choreo-apis')) {
-    return config;
+// Add interceptor for handling authentication errors
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      // Session expired - redirect to login
+      window.location.href = '/auth/login';
+      return Promise.reject(error);
+    }
+    return Promise.reject(error);
   }
-  
-  // For development or other environments, you might need to add authentication headers here
-  return config;
-});
+);
 
 export const bookService = {
   // Get all books

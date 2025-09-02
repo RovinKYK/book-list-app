@@ -13,16 +13,16 @@ const apiClient = axios.create({
 
 // For Choreo-managed authentication, requests to the backend should be proxied
 // through /choreo-apis/ path, so we need to modify the baseURL when running in Choreo
-if (window.configs && window.configs.apiUrl) {
-  // Check if this is running in Choreo (config.js will be injected)
-  apiClient.interceptors.request.use(config => {
-    if (!config.url.startsWith('http')) {
-      // Only transform relative URLs
-      config.url = `/choreo-apis/${config.url}`;
-    }
-    return config;
-  });
-}
+// if (window.configs && window.configs.apiUrl) {
+//   // Check if this is running in Choreo (config.js will be injected)
+//   apiClient.interceptors.request.use(config => {
+//     if (!config.url.startsWith('http')) {
+//       // Only transform relative URLs
+//       config.url = `/choreo-apis/${config.url}`;
+//     }
+//     return config;
+//   });
+// }
 
 // Book API service
 const BookService = {

@@ -4,20 +4,15 @@ import { Book, BookWithUUID } from '../types/Book';
 class BookService {
   private api: AxiosInstance;
   private baseURL: string;
-  private apiKey: string;
 
   constructor() {
-    // These will be injected by Choreo when deployed
-    // For local development, you can use environment variables
+    // Get the base URL from the config.js file mounted by Choreo
     this.baseURL = this.getServiceURL();
-    this.apiKey = this.getAPIKey();
     
     this.api = axios.create({
       baseURL: this.baseURL,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.apiKey}`,
-        'X-API-Key': this.apiKey,
       },
     });
   }
@@ -26,18 +21,9 @@ class BookService {
     // In Choreo deployment, this will be available in window.configs
     // For local development, use environment variable or default
     if (typeof window !== 'undefined' && (window as any).configs) {
-      return (window as any).configs.ServiceURL || 'http://localhost:8080';
+      return (window as any).configs.ServiceURL || '/choreo-apis/rovintest/book-list-service/v1';
     }
     return process.env.REACT_APP_SERVICE_URL || 'http://localhost:8080';
-  }
-
-  private getAPIKey(): string {
-    // In Choreo deployment, this will be available in window.configs
-    // For local development, use environment variable
-    if (typeof window !== 'undefined' && (window as any).configs) {
-      return (window as any).configs.ChoreoAPIKey || '';
-    }
-    return process.env.REACT_APP_API_KEY || '';
   }
 
   async getAllBooks(): Promise<BookWithUUID[]> {

@@ -2,7 +2,7 @@ export interface Book {
   uuid?: string;
   title: string;
   author: string;
-  status: 'read' | 'unread' | 'reading';
+  status: 'read' | 'to_read' | 'reading';
 }
 
 export interface BookResponse {

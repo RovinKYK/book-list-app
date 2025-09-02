@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Book, BookResponse } from '../types/Book';
 
 // Use Choreo connection service URL for managed authentication
-const API_BASE_URL = window.configs?.apiUrl || '/choreo-apis/rovintest/book-list-service/v1';
+const API_BASE_URL = window.configs?.apiUrl || '/choreo-apis/rovintest/book-list-service/v1.0';
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,

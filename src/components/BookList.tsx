@@ -39,7 +39,7 @@ const BookList: React.FC = () => {
   const [formData, setFormData] = useState<Omit<Book, 'uuid'>>({
     title: '',
     author: '',
-    status: 'unread',
+    status: 'to_read',
   });
 
   useEffect(() => {
@@ -69,7 +69,7 @@ const BookList: React.FC = () => {
 
   const handleAddBook = () => {
     setEditingBook(null);
-    setFormData({ title: '', author: '', status: 'unread' });
+    setFormData({ title: '', author: '', status: 'to_read' });
     setDialogOpen(true);
   };
 
@@ -114,7 +114,7 @@ const BookList: React.FC = () => {
         return 'success';
       case 'reading':
         return 'warning';
-      case 'unread':
+      case 'to_read':
         return 'default';
       default:
         return 'default';
@@ -239,7 +239,7 @@ const BookList: React.FC = () => {
                 onChange={(e) => setFormData({ ...formData, status: e.target.value as any })}
                 label="Status"
               >
-                <MenuItem value="unread">Unread</MenuItem>
+                <MenuItem value="to_read">To Read</MenuItem>
                 <MenuItem value="reading">Reading</MenuItem>
                 <MenuItem value="read">Read</MenuItem>
               </Select>

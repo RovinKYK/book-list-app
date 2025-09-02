@@ -40,13 +40,53 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 Builds the app for production to the `build` folder.
 
-### Choreo Deployment
+### Choreo Deployment Instructions
 
-1. Create a web application component in Choreo
-2. Connect it to this repository
-3. Enable managed authentication
-4. Create a connection to the book-list-service
-5. Deploy the application
+1. **Create Web Application Component (already done)**
+   - Name: Book List Web App
+   - Repository: https://github.com/RovinKYK/book-list-app.git
+   - Branch: main
+   - Build Pack Language: React
+   - Enable Managed Auth: Yes
+   - Port: 3000
+   - Build Command: npm run build
+   - Output Directory: build
+
+2. **Create Connection to Book-List-Service (already done)**
+   - Connection Name: book-list-service-connection
+
+3. **Configure API URL**
+   - Navigate to the Configurations section in the Deploy view
+   - Create a file mount configuration with:
+     - Name: API_CONFIG
+     - File Mount Path: /app/public/config.js
+     - Content for Development:
+       ```
+       window.configs = {
+         apiUrl: '/choreo-apis/api/v2',
+       };
+       ```
+     - Content for Production:
+       ```
+       window.configs = {
+         apiUrl: '/choreo-apis/rovintest/book-list-service/v1',
+       };
+       ```
+
+4. **Create Test Users for Authentication**
+   - In the Choreo Console, go to Settings > Test Users
+   - Create a new test user with your preferred credentials
+
+5. **Build and Deploy**
+   - Trigger a build from the "Build" section
+   - After a successful build, deploy to the Development environment
+   - Test the application to ensure it works correctly
+   - Promote to Production when ready
+
+6. **Testing the Deployment**
+   - Access the application via the provided URL
+   - You will be prompted to log in using the test credentials
+   - After logging in, you should be able to view, add, edit, and delete books
 
 ## Learn More
 

@@ -2,16 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import BookService from '../services/BookService';
 import { toast } from 'react-toastify';
+import { useAuth } from '../context/AuthContext';
 
 const BookList = () => {
+  const { isAuthenticated, login } = useAuth();
   const [books, setBooks] = useState([]);
   const [bookDetails, setBookDetails] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchBooks();
-  }, []);
+    if (isAuthenticated) {
+      fetchBooks();
+    } else {
+      setLoading(false);
+    }
+  }, [isAuthenticated]);
 
   const fetchBooks = async () => {
     try {
@@ -103,6 +109,16 @@ const BookList = () => {
     );
   }
 
+  if (!isAuthenticated) {
+    return (
+      <div className="text-center my-5">
+        <h2>Welcome to Book List App</h2>
+        <p>Please log in to view and manage your reading list.</p>
+        <button onClick={login} className="btn btn-primary">Login</button>
+      </div>
+    );
+  }
+  
   if (books.length === 0) {
     return (
       <div className="text-center my-5">

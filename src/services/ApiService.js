@@ -15,18 +15,18 @@ const createApiService = () => {
     withCredentials: true
   });
 
-  // Add request interceptor to handle API paths for Choreo
-  apiClient.interceptors.request.use(config => {
-    // When running in Choreo with managed auth, requests should use service URLs
-    if (window.configs && window.configs.apiUrl) {
-      if (!config.url.startsWith('http')) {
-        // Only transform relative URLs - the service path will be configured in Choreo
-        // when we create a connection to the backend service
-        config.url = `/choreo-apis/${config.url}`;
-      }
-    }
-    return config;
-  });
+//   // Add request interceptor to handle API paths for Choreo
+//   apiClient.interceptors.request.use(config => {
+//     // When running in Choreo with managed auth, requests should use service URLs
+//     if (window.configs && window.configs.apiUrl) {
+//       if (!config.url.startsWith('http')) {
+//         // Only transform relative URLs - the service path will be configured in Choreo
+//         // when we create a connection to the backend service
+//         config.url = `/choreo-apis/${config.url}`;
+//       }
+//     }
+//     return config;
+//   });
 
   // Add response interceptor to handle session expiry
   apiClient.interceptors.response.use(
